@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: cats-dogs-api}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: cats-dogs-api}}
+  template:
+    metadata: {labels: {app: cats-dogs-api}}
+    spec:
+      containers:
+      - name: api
+        image: <your-dockerhub>/cats-dogs-api:latest
+        ports: [{containerPort: 8000}]
+---
+apiVersion: v1
+kind: Service
+metadata: {name: cats-dogs-service}
+spec:
+  selector: {app: cats-dogs-api}
+  ports: [{port: 8000, targetPort: 8000}]
+  type: LoadBalancer
