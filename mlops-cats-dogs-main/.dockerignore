@@ -1,0 +1,11 @@
+.git
+.gitignore
+.dvc
+.dvcignore
+data/
+mlruns/
+__pycache__/
+*.pyc
+*.pyo
+*.log
+.env

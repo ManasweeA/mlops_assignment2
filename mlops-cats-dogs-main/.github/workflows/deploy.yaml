@@ -1,0 +1,37 @@
+name: Deploy Docker Image (Local)
+
+on:
+  workflow_dispatch:   # Manual trigger only
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # -------------------------
+      # BUILD DOCKER IMAGE
+      # -------------------------
+
+      - name: Build Docker image
+        run: docker build -t cats-dogs-app .
+
+      # -------------------------
+      # SAVE IMAGE AS TAR FILE
+      # -------------------------
+
+      - name: Save Docker image
+        run: |
+          docker save cats-dogs-app:latest -o cats-dogs-app.tar
+
+      # -------------------------
+      # UPLOAD IMAGE ARTIFACT
+      # -------------------------
+
+      - name: Upload Docker image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cats-dogs-docker-image
+          path: cats-dogs-app.tar
