@@ -3,6 +3,4 @@ __pycache__/
 *.pyc
 data/
 mlruns/
-model.pt
 *.zip
-model.pt
